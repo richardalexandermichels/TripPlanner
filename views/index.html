@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+	<div class="lead-section section">
+		<div class="row">
+			<div class="col-lg-8 col-md-6 col-sm-12">
+				<div class="container">
+					<div class="map" id="google_map">
+					</div>
+				</div>
+			</div><div class="col-lg-4 col-md-6 col-sm-12 side-col">
+				<div class="sidebar container">
+					<div class="content">
+						<h4>Hotels</h4>
+						<select name="all_hotels">
+							{% for hotel in all_hotels %}
+								<option value="{{hotel.name}}">{{hotel.name}}</option>
+							{% endfor %}
+						</select>
+						<h4>Restaurants</h4>
+						<select name="all_restaurants">
+							{% for restaurant in all_restaurants %}
+								<option value="{{restaurant.name}}">{{restaurant.name}}</option>
+							{% endfor %}
+						</select>
+						<h4>Things to Do</h4>
+						<select name="all_things_to_do">
+							{% for thing_to_do in all_things_to_do %}
+								<option value="{{thing_to_do.name}}">{{thing_to_do.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div><div class="sidebar container">
+					<h3>Day 2</h3>
+				</div><div class="sidebar container">
+					<div class="buttons">
+						<button>1</button>
+						<button>2</button>
+						<button>3</button>
+						<button>+</button>
+					</div>
+					<div class="content">
+						<ul>
+							<h4>My Hotel</h4>
+							<li>XXXXXXXXX</li>
+							<h4>My Restaurants</h4>
+							<li>XXXXXXY</li>
+							<h4>My Things to Do</h4>
+							<li>XY</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+

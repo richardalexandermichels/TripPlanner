@@ -2,9 +2,10 @@
   "name": "TripPlanner",
   "version": "1.0.0",
   "description": "Helps plan a tri",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -e html,scss,js app.js"
   },
   "repository": {
     "type": "git",
@@ -17,9 +18,13 @@
   },
   "homepage": "https://github.com/madwed/TripPlanner",
   "dependencies": {
+    "async": "^1.3.0",
+    "bluebird": "^2.9.30",
     "body-parser": "^1.13.1",
     "express": "^4.13.0",
     "mongoose": "^4.0.6",
-    "morgan": "^1.6.0"
+    "morgan": "^1.6.0",
+    "node-sass-middleware": "^0.9.0",
+    "swig": "^1.4.2"
   }
 }
