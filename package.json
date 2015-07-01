@@ -1,0 +1,25 @@
+{
+  "name": "TripPlanner",
+  "version": "1.0.0",
+  "description": "Helps plan a tri",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/madwed/TripPlanner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madwed/TripPlanner/issues"
+  },
+  "homepage": "https://github.com/madwed/TripPlanner",
+  "dependencies": {
+    "body-parser": "^1.13.1",
+    "express": "^4.13.0",
+    "mongoose": "^4.0.6",
+    "morgan": "^1.6.0"
+  }
+}
