@@ -12,7 +12,11 @@ router.get("/", function (req, res, next) {
 		data["all_things_to_do"] = array[1];
 		data["all_restaurants"] = array[2];
 		res.render("index", data);
+<<<<<<< HEAD
 		console.log(array)
+=======
+		//console.log(array)
+>>>>>>> 00f2089ec6d86f362d41e5d8f52f03a81c132a6e
 	});
 
 });
