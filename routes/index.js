@@ -12,6 +12,7 @@ router.get("/", function (req, res, next) {
 		data["all_things_to_do"] = array[1];
 		data["all_restaurants"] = array[2];
 		res.render("index", data);
+		console.log(array)
 	});
 
 });
