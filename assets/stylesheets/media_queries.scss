@@ -12,6 +12,7 @@ $cols: 12;
 		@for $n from 1 through $cols {
 			.col-#{$category}-#{$n} {
 				&:before, &:after{
+					clear: both;
 					content: "";
 					display: table;
 				}

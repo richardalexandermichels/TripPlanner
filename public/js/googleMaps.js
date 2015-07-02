@@ -5,7 +5,37 @@ function initialize_gmaps() {
     var mapOptions = {
         center: myLatlng,
         zoom: 16,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles: [
+                  {
+                    featureType: "landscape",
+                    stylers: [
+                      {saturation: 100},
+                      { color: "#bbbb"}
+                    ]
+                  },{
+                    featureType: "landscape.fill",
+                    stylers: [
+                      {saturation: 100},
+                      { color: "#ccc"}
+                    ]
+                  },{
+                    featureType: "road",
+                    stylers: [
+                      { color: "#ff2222" },
+                      { saturation: 200 },
+                      {gamma: 0.5}
+                    ]
+                  },{
+                    featureType: "water",
+                    elementType: "geometry",
+                    stylers: [
+                      {
+                        color: "#090228"
+                      }
+                      ]
+                    }
+                ]
     };
     // get the maps div's HTML obj
     var map_canvas_obj = document.getElementById("google_map");
