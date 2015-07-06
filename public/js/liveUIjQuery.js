@@ -1,35 +1,51 @@
-var daysArray = [{}];
+$(document).ready(function(){
+
+var daysArray = [{hotel:'',
+				  rest:[],
+				  thing:[],
+				  markers:[]
+				}];
+
+
+
+var current = 1;
+console.log("all restaruants",all_restaurants);
+
 $(".hotel-button").on("click", function(){
-	var day = daysArray[0];
-	if (!day.hotel)
-	 day.hotel = $(this).prev().val();
-	console.log(daysArray);
-})
+	var contents = '<div class="itinerary-item"> <span class="title">'+$(this).prev().val()+'</span><button class="btn btn-xs btn-danger remove btn-circle">x</button></div>';
+	//console.log("firstChild: ",$(".hotel-list ul").firstChild)
+	daysArray[current-1].hotel=contents;
+	//console.log(daysArray[current-1]);
+	
+	if($('#hotels').children().length){
 
-
-
-
-
-$(".hotel-button").on("click", function(){
-	var contents = '<div class="itinerary-item"> <span class="title">'+$(this).prev().val()+'</span> <button class="btn btn-xs btn-danger remove btn-circle hotel-delete">x</button> </div>';
-		console.log("firstChild: ",$(".hotel-list ul").firstChild)
-		if (!daysArray[0].hotel){
-			$(".hotel-list ul").append("<li>"+contents+"</li>")
-		} else {
-			$(".hotel-list ul").closest("<li>").remove();
-			$(".hotel-list ul").append("<li>"+contents+"</li>")
-		}
+		$("#hotels").children().remove()
+	}
+	$("#hotels").append(contents);	
+	//var name = $(this).prev().val()
+	//console.log('THE NAME I WANT',name)
 })
 
 
 $(".restaurant-button").on("click", function(){
-		var contents = '<div class="itinerary-item"> <span class="title">'+$(this).prev().val()+'</span> <button class="btn btn-xs btn-danger remove btn-circle pull-right restaurant-delete">x</button> </div>';
-	$(".restaurant-list").append("<li>"+contents+"</li>");
+	var contents = '<div class="itinerary-item"> <span class="title">'+$(this).prev().val()+'</span><button class="btn btn-xs btn-danger remove btn-circle pull-right">x</button></div>';
+	daysArray[current-1].rest.push(contents);
+	//console.log(daysArray[current-1]);
+	$("#rests").append(contents);	
+	var name = $(this).prev().val()
+	//console.log('THE NAME I WANT',name)
+	drawLocation ("/images/restaurant.png", all_restaurants, name)
+	console.log("all restaruants",all_restaurants);
+	//console.log(daysArray[current-1].markers)
 })
 
 $(".thingstodo-button").on("click", function(){
-		var contents = '<div class="itinerary-item"> <span class="title">'+$(this).prev().val()+'</span> <button class="btn btn-xs btn-danger remove btn-circle pull-right thingstodo-delete">x</button> </div>';
-	$(".thingstodo-list").append("<li>"+contents+"</li>");
+	var contents = '<div class="itinerary-item"> <span class="title">'+$(this).prev().val()+'</span> <button class="btn btn-xs btn-danger remove btn-circle pull-right">x</button></div>';
+	daysArray[current-1].thing.push(contents);
+	//console.log(daysArray[current-1]);
+	var name = $(this).prev().val()
+	$("#things").append(contents);
+	drawLocation ("/images/star-3.png", all_things_to_do, name)
 })
 
 
@@ -38,30 +54,84 @@ $(".thingstodo-button").on("click", function(){
 
 
 
-$(".hotel-list").delegate(".hotel-delete", "click", function(){
-	$(this).closest($("li")).remove();
+$(".panel-body").delegate(".remove", "click", function(){
+	//console.log(daysArray[current-1].rest[0])
+	//console.log($(this).closest('div')[0].outerHTML)
+	//console.log("FOUND AT INDEX",daysArray[current-1].rest.indexOf(toFind))
+	console.log($(this).parents()[2].className)
+	if($(this).parents()[2].className ===  "restaurant-list"){
+		var restToFind = $(this).closest('div')[0].outerHTML
+		var restToFindIndex = daysArray[current-1].rest.indexOf(restToFind)
+		daysArray[current-1].rest.splice(restToFindIndex, 1);
+	}else if($(this).parents()[2].className ===  "thingstodo-list"){
+		var thingToFind = $(this).closest('div')[0].outerHTML
+		var thingToFindIndex = daysArray[current-1].thing.indexOf(thingToFind)
+		daysArray[current-1].thing.splice(thingToFindIndex, 1);
+	}
+	
+
+	$(this).closest($("div")).remove();
 	$(this).remove();
-})
-
-$(".restaurant-list").delegate(".restaurant-delete", "click", function(){
-	$(this).closest($("li")).remove();
-	$(this).remove();
-})
-
-$(".thingstodo-list").delegate(".thingstodo-delete", "click", function(){
-	$(this).closest($("li")).remove();
-	$(this).remove();
+	
 })
 
 
 
 
 
-var count = 0;
+
 $("#add-day").on("click", function(){
-	count ++
-	console.log($(this).siblings()[0])
-	var selector = ".current-" + count;
-	var classSet = "current-" + Number(count + 1);
-	$(selector).after('<button class="btn btn-circle day-btn '+classSet+'">'+Number(count+1)+'</button>')
+	daysArray.push({hotel:[],
+				  rest:[],
+				  thing:[],
+				  markers:[]
+				});
+	$('<button class="btn btn-circle day-btn">'+(parseInt($(this).prev().text())+1)+'</button>').insertBefore($(this))
+	//$(selector).after('<button class="btn btn-circle day-btn '+classSet+'">'+Number(count+1)+'</button>')
 })
+
+
+//switching days
+//iterate throught days array key arrays and populate day
+
+
+
+$('.day-buttons').delegate('.day-btn','click',function(){
+	$('.current-day').removeClass('current-day');
+	$(this).addClass("current-day");
+	$(".itinerary-item").remove();
+	current = $(".current-day").text();
+	$('#hotels').append(daysArray[current-1].hotel)
+	for(var i = 0; i < daysArray[current-1].rest.length; i++){
+		$(".restaurant-list .list-group").append(daysArray[current-1].rest[i]);
+	}
+	for(var i = 0; i < daysArray[current-1].thing.length; i++){
+		$(".thingstodo-list .list-group").append(daysArray[current-1].thing[i]);
+	}
+
+})
+
+
+
+function drawLocation (src, list, name) {
+	for(var i=0; i < list.length; i++) {
+    	if(name === list[i].name){
+    		var location = list[i].place[0].location
+    		opts = {};
+	        opts.position = new google.maps.LatLng(location[0], location[1]);
+	        opts.map = map;
+	        opts.icon = src;
+	        opts.name = name;
+	        var marker = new google.maps.Marker(opts);
+	        daysArray[current-1].markers.push(marker);
+	        }	
+		}
+    }
+
+
+})
+
+
+
+
+
